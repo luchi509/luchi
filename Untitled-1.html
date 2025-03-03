@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Quiz for Bebsie 💖</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(45deg, #ff758c, #ff7eb3);
+            color: white;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+            color: black;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards;
+        }
+        input, button {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        input {
+            width: 80%;
+        }
+        button {
+            background-color: #ff4d6d;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        .hidden { display: none; }
+        .question { opacity: 0; transform: translateY(20px); animation: fadeIn 0.5s forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="startPage">
+        <h2>Whom do you love the most? 💖</h2>
+        <input type="text" id="loveInput" placeholder="Type the name...">
+        <button onclick="checkLove()">Submit</button>
+    </div>
+
+    <div class="container hidden" id="quizPage">
+        <h2>Up for a quiz? 😊</h2>
+        <button onclick="startQuiz()">Yes!</button>
+    </div>
+
+    <div class="container hidden" id="quizQuestions">
+        <h2 id="questionText" class="question"></h2>
+        <input type="text" id="answerInput" class="question">
+        <button onclick="nextQuestion()" class="question">Next</button>
+    </div>
+
+    <div class="container hidden" id="chatPage">
+        <h2>Baat karni hai? 💬</h2>
+        <button onclick="startChat()">Yes!</button>
+    </div>
+
+    <div class="container hidden" id="chatQuestions">
+        <h2 id="chatQuestion" class="question"></h2>
+        <textarea id="chatAnswer" class="question"></textarea>
+        <button onclick="nextChat()" class="question">Next</button>
+    </div>
+
+    <div class="container hidden" id="finalPage">
+        <h2>Anyways, will fulfill my research...</h2>
+        <h1>I LOVE YOU 💖 MWAHHHH! 😘</h1>
+    </div>
+
+    <script>
+        function checkLove() {
+            let name = document.getElementById("loveInput").value.toLowerCase();
+            if (name === "bebsie") {
+                document.getElementById("startPage").classList.add("hidden");
+                document.getElementById("quizPage").classList.remove("hidden");
+            }
+        }
+
+        const quizQuestions = [
+            "Where did we first meet?",
+            "When did we first kiss?",
+            "What did we have on our first date?",
+            "When did you first give me a flower?",
+            "When did we first fight?"
+        ];
+
+        let currentQuizIndex = 0;
+
+        function startQuiz() {
+            document.getElementById("quizPage").classList.add("hidden");
+            document.getElementById("quizQuestions").classList.remove("hidden");
+            showQuestion();
+        }
+
+        function showQuestion() {
+            document.getElementById("questionText").innerText = quizQuestions[currentQuizIndex];
+            document.getElementById("answerInput").value = "";
+        }
+
+        function nextQuestion() {
+            currentQuizIndex++;
+            if (currentQuizIndex < quizQuestions.length) {
+                showQuestion();
+            } else {
+                document.getElementById("quizQuestions").classList.add("hidden");
+                document.getElementById("chatPage").classList.remove("hidden");
+            }
+        }
+
+        const chatQuestions = [
+            "What was your first impression about me?",
+            "Your favourite memory?",
+            "What two things would you change about me if you could?",
+            "If you were given a day to spend together, how would you like it?",
+            "What can be the reasons you ditch me for?"
+        ];
+
+        let currentChatIndex = 0;
+
+        function startChat() {
+            document.getElementById("chatPage").classList.add("hidden");
+            document.getElementById("chatQuestions").classList.remove("hidden");
+            showChatQuestion();
+        }
+
+        function showChatQuestion() {
+            document.getElementById("chatQuestion").innerText = chatQuestions[currentChatIndex];
+            document.getElementById("chatAnswer").value = "";
+        }
+
+        function nextChat() {
+            currentChatIndex++;
+            if (currentChatIndex < chatQuestions.length) {
+                showChatQuestion();
+            } else {
+                document.getElementById("chatQuestions").classList.add("hidden");
+                document.getElementById("finalPage").classList.remove("hidden");
+            }
+        }
+    </script>
+</body>
+</html>
